@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "Notification";
+}
+
+<h2>@ViewBag.Header</h2>
+
+<p class="@ViewBag.MessageStyle">
+    @ViewBag.Message
+</p>
+
+@Html.ActionLink("Volver a Index", "Index", new { }, new { @class = "btn btn-primary" })
+
+<script>
+    $.(document).ready(function () {
+        setTimeout(function(){
+            window.location = @Url.Action("Delete", "Region", null, Request.Url.Scheme)
+        }, 5000);
+    })
+</script>

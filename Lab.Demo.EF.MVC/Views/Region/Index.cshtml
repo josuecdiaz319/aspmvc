@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Lab.Demo.EF.Entities.Region>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+@Html.ActionLink("Crear Región", "CreateForm", new { }, new { @class = "btn btn-success" })
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Descripción</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.RegionID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RegionDescription)
+        </td>
+        <td>
+            @Html.ActionLink("Modificar", "ModifyForm", new Lab.Demo.EF.Entities.Region{ RegionID=item.RegionID, RegionDescription=item.RegionDescription.Trim() }, new { @class = "btn btn-warning" })
+        </td>
+        <td>
+            <button class="btn btn-danger" onclick="DeleteRegion(@item.RegionID, '@item.RegionDescription.Trim()')">Eliminar</button>
+        </td>
+    </tr>
+    }
+</table>
+<script>
+    function DeleteRegion(id, description) {
+         if (window.confirm("¿Realmente desea eliminar la región " + description + "?") == true) {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("Delete", "Region", null, Request.Url.Scheme)',
+                data: {
+                    RegionID: id,
+                    RegionDescription: description
+                },
+                success: function (data) {
+                    if (data == "Region deleted successfully") {
+                        location.reload();
+                    }
+                    else if (data == "Region does not exist") {
+                        //error
+                    }
+                    else {
+                        //error
+                    }
+                },
+                dataType: 'json'
+            });
+        }
+    }
+</script>

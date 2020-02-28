@@ -1,0 +1,22 @@
+﻿
+@model Lab.Demo.EF.Entities.Region
+
+@{
+    ViewBag.Title = "CreateForm";
+}
+
+<h2>Crear Región</h2>
+
+@using (Html.BeginForm("Create", "Region", FormMethod.Post, new { @class = "login-form" }))
+{
+    <div class="form-group">
+        <label for="id">ID de la región:</label>
+        @Html.TextBoxFor(m => m.RegionID, new { @id = "id", @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label for="description">Descripción de la región:</label>
+        @Html.TextBoxFor(m => m.RegionDescription, new { @id = "id", @class = "form-control" })
+    </div>
+    <button type="submit" class=" btn btn-primary">Crear</button>
+    @Html.ActionLink("Volver a Index", "Index", new { }, new { @class = "btn btn-primary" })
+}
